@@ -1,0 +1,4 @@
+.idea/
+__pycache__/
+isolation/__pycache__/
+.DS_Store
