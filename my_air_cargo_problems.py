@@ -9,6 +9,8 @@ from lp_utils import (
 )
 from my_planning_graph import PlanningGraph
 
+# custom imports
+
 
 class AirCargoProblem(Problem):
     def __init__(self, cargos, planes, airports, initial: FluentState, goal: list):
@@ -203,7 +205,25 @@ class AirCargoProblem(Problem):
         executed.
         '''
         # TODO implement (see Russell-Norvig Ed-3 10.2.3  or Russell-Norvig Ed-2 11.2)
+        # 1. First, we relax the actions by removing all preconditions and all effects
+        # except those that are literals in the goal.
+        relaxed = set()
+        for action in self.get_actions():
+            effects = action.effect_add + action.effect_rem
+            subset = frozenset(effects).intersection(frozenset(self.goal))
+            if len(subset) > 0:
+                relaxed.add(subset)
+        relaxed = sorted(relaxed, key=lambda effect: len(effect), reverse=True)
+        # 2. Then, we count the minimum number of actions required such that the union
+        # of those actions’ effects satisfies the goal.
         count = 0
+        remaining_goal = set(self.goal)
+        for ra in relaxed:
+            if len(remaining_goal) == 0:
+                break
+            for r in ra:
+                remaining_goal.remove(r)
+            count += 1
         return count
 
 
@@ -240,3 +260,19 @@ def air_cargo_p2() -> AirCargoProblem:
 def air_cargo_p3() -> AirCargoProblem:
     # TODO implement Problem 3 definition
     pass
+
+
+if __name__ == '__main__':
+    p = air_cargo_p1()
+    print("**** Air Cargo example problem setup ****")
+    print("Initial state for this problem is {}".format(p.initial))
+    print("Actions for this domain are:")
+    for a in p.actions_list:
+        print('   {}{}'.format(a.name, a.args))
+    print("Fluents in this problem are:")
+    for f in p.state_map:
+        print('   {}'.format(f))
+    print("Goal requirement for this problem are:")
+    for g in p.goal:
+        print('   {}'.format(g))
+    print()
