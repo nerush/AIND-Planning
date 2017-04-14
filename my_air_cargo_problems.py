@@ -204,7 +204,7 @@ class AirCargoProblem(Problem):
         conditions by ignoring the preconditions required for an action to be
         executed.
         '''
-        return len(set(self.goal)) - len(set(self.goal).intersection(set(decode_state(node.state, self.state_map).pos)))
+        return len(set(self.goal) - set(decode_state(node.state, self.state_map).pos))
 
 
 def air_cargo_p1() -> AirCargoProblem:
