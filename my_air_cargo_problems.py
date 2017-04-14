@@ -204,7 +204,6 @@ class AirCargoProblem(Problem):
         conditions by ignoring the preconditions required for an action to be
         executed.
         '''
-        # TODO implement (see Russell-Norvig Ed-3 10.2.3  or Russell-Norvig Ed-2 11.2)
         # 1. First, we relax the actions by removing all preconditions and all effects
         # except those that are literals in the goal.
         relaxed = set()
@@ -218,11 +217,11 @@ class AirCargoProblem(Problem):
         # of those actions’ effects satisfies the goal.
         count = 0
         remaining_goal = set(self.goal)
-        for ra in relaxed:
+        for relaxed_action in relaxed:
             if len(remaining_goal) == 0:
                 break
-            for r in ra:
-                remaining_goal.remove(r)
+            for fluent in relaxed_action:
+                remaining_goal.remove(fluent)
             count += 1
         return count
 
