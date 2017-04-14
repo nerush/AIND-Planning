@@ -204,26 +204,7 @@ class AirCargoProblem(Problem):
         conditions by ignoring the preconditions required for an action to be
         executed.
         '''
-        # 1. First, we relax the actions by removing all preconditions and all effects
-        # except those that are literals in the goal.
-        relaxed = set()
-        for action in self.get_actions():
-            effects = action.effect_add + action.effect_rem
-            subset = frozenset(effects).intersection(frozenset(self.goal))
-            if len(subset) > 0:
-                relaxed.add(subset)
-        relaxed = sorted(relaxed, key=lambda effect: len(effect), reverse=True)
-        # 2. Then, we count the minimum number of actions required such that the union
-        # of those actions’ effects satisfies the goal.
-        count = 0
-        remaining_goal = set(self.goal)
-        for relaxed_action in relaxed:
-            if len(remaining_goal) == 0:
-                break
-            for fluent in relaxed_action:
-                remaining_goal.remove(fluent)
-            count += 1
-        return count
+        return len(set(self.goal)) - len(set(self.goal).intersection(set(decode_state(node.state, self.state_map).pos)))
 
 
 def air_cargo_p1() -> AirCargoProblem:
