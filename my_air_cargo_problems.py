@@ -127,18 +127,20 @@ class AirCargoProblem(Problem):
             e.g. 'FTTTFF'
         :return: list of Action objects
         """
+        def is_possible(state: str, act: Action) -> bool:
+            kb = PropKB()
+            kb.tell(decode_state(state, self.state_map).pos_sentence())
+            for fluent in act.precond_pos:
+                if fluent not in kb.clauses:
+                    return False
+            for fluent in act.precond_neg:
+                if fluent in kb.clauses:
+                    return False
+            return True
+
         possible_actions = []
-        kb = PropKB()
-        kb.tell(decode_state(state, self.state_map).pos_sentence())
         for action in self.actions_list:
-            is_possible = True
-            for clause in action.precond_pos:
-                if clause not in kb.clauses:
-                    is_possible = False
-            for clause in action.precond_neg:
-                if clause in kb.clauses:
-                    is_possible = False
-            if is_possible:
+            if is_possible(state, action):
                 possible_actions.append(action)
         return possible_actions
 
