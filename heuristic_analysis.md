@@ -365,8 +365,37 @@ Unload(C1, P1, JFK)
 
 ## 10. A* search with levelsum heuristic function
 ### Air Cargo Problem 1
+ - Expansions: 7
+ - Goal Tests: 9
+ - New Nodes: 28
+ - Plan length: 6
+ - Execution time: 0.9002755659894319 seconds
+```
+Load(C1, P1, SFO)
+Load(C2, P2, JFK)
+Fly(P1, SFO, JFK)
+Fly(P2, JFK, SFO)
+Unload(C1, P1, JFK)
+Unload(C2, P2, SFO)
+```
 
 ### Air Cargo Problem 2
+ - Expansions: 77
+ - Goal Tests: 79
+ - New Nodes: 760
+ - Plan length: 9
+ - Execution time: 129.23260724698775 seconds
+```
+Load(C1, P1, SFO)
+Fly(P1, SFO, JFK)
+Load(C2, P2, JFK)
+Fly(P2, JFK, SFO)
+Load(C3, P3, ATL)
+Fly(P3, ATL, SFO)
+Unload(C3, P3, SFO)
+Unload(C2, P2, SFO)
+Unload(C1, P1, JFK)
+```
 
 ### Air Cargo Problem 3
-
+Does not terminate in 10 minutes.

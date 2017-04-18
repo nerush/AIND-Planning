@@ -495,16 +495,18 @@ class PlanningGraph():
 
         :return: int
         '''
+        deepest_level = len(self.problem.goal) - 1
+
         # tail recursive level search
-        def get_goal_level(goal, current_level: int) -> int:
-            if current_level >= len(self.problem.goal):
+        def goal_level(goal, current_level: int) -> int:
+            if current_level > deepest_level:
                 # goal is not found
                 return float("inf")
-            if goal in [s.literal for s in self.s_levels[current_level]]:
-                # goal is found
-                return current_level
-            else:
-                # try to find the goal in the next level
-                return get_goal_level(goal, current_level + 1)
+            for s in self.s_levels[current_level]:
+                if goal == s.literal:
+                    # goal is found
+                    return current_level
+            # try to find the goal in the next level
+            return goal_level(goal, current_level + 1)
         # return sum of levels
-        return sum([get_goal_level(g, 0) for g in self.problem.goal])
+        return sum([goal_level(g, 0) for g in self.problem.goal])
