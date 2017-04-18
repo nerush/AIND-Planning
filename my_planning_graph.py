@@ -316,7 +316,6 @@ class PlanningGraph():
                         p.children.add(action_node)
                         action_node.parents.add(p)
 
-
     def add_literal_level(self, level):
         ''' add an S (literal) level to the Planning Graph
 
@@ -496,7 +495,16 @@ class PlanningGraph():
 
         :return: int
         '''
-        level_sum = 0
-        # TODO implement
-        # for each goal in the problem, determine the level cost, then add them together
-        return level_sum
+        # tail recursive level search
+        def get_goal_level(goal, current_level: int) -> int:
+            if current_level >= len(self.problem.goal):
+                # goal is not found
+                return float("inf")
+            if goal in [s.literal for s in self.s_levels[current_level]]:
+                # goal is found
+                return current_level
+            else:
+                # try to find the goal in the next level
+                return get_goal_level(goal, current_level + 1)
+        # return sum of levels
+        return sum([get_goal_level(g, 0) for g in self.problem.goal])
