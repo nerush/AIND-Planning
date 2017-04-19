@@ -14,6 +14,22 @@ There are five performance metrics in each search method evaluation:
 After analysing all 10 search methods listed in this paper, the following optimal plans have been found for Problems 1, 2 and 3.
 
 ##  Air Cargo Problem 1
+TODO:
+
+|                                                 | Expansions | Goal Tests | New Nodes | Plan length | Execution time in seconds |
+|:------------------------------------------------|:-----------|:-----------|:----------|:------------|:--------------------------|
+| Breadth first search                            | 43         | 56         | 180       | 6           | 0.035                     |
+| Breadth first tree search                       |            |            |           |             |                           |
+| Depth first graph search                        |            |            |           |             |                           |
+| Depth limited search                            |            |            |           |             |                           |
+| Uniform cost search                             |            |            |           |             |                           |
+| Recursive best first search with h1             |            |            |           |             |                           |
+| Greedy best first graph search with h1          |            |            |           |             |                           |
+| A* search with h1 heuristic                     |            |            |           |             |                           |
+| A* search with h_ignore_preconditions heuristic |            |            |           |             |                           |
+| A* search with levelsum heuristic               |            |            |           |             |                           |
+
+The optimal solution for the problem.
 ```
 Load(C1, P1, SFO)
 Load(C2, P2, JFK)
@@ -24,6 +40,22 @@ Unload(C2, P2, SFO)
 ```
 
 ##  Air Cargo Problem 2
+TODO:
+
+|                                                 | Expansions | Goal Tests | New Nodes | Plan length | Execution time in seconds |
+|:------------------------------------------------|:-----------|:-----------|:----------|:------------|:--------------------------|
+| Breadth first search                            | 3346       | 4612       | 30534     | 9           | 81.659                    |
+| Breadth first tree search                       |            |            |           |             |                           |
+| Depth first graph search                        |            |            |           |             |                           |
+| Depth limited search                            |            |            |           |             |                           |
+| Uniform cost search                             |            |            |           |             |                           |
+| Recursive best first search with h1             |            |            |           |             |                           |
+| Greedy best first graph search with h1          |            |            |           |             |                           |
+| A* search with h1 heuristic                     |            |            |           |             |                           |
+| A* search with h_ignore_preconditions heuristic |            |            |           |             |                           |
+| A* search with levelsum heuristic               |            |            |           |             |                           |
+
+The optimal solution for the problem.
 ```
 Load(C1, P1, SFO)
 Fly(P1, SFO, JFK)
@@ -37,6 +69,22 @@ Unload(C1, P1, JFK)
 ```
 
 ##  Air Cargo Problem 3
+TODO:
+
+|                                                 | Expansions | Goal Tests | New Nodes | Plan length | Execution time in seconds |
+|:------------------------------------------------|:-----------|:-----------|:----------|:------------|:--------------------------|
+| Breadth first search                            | 14663      | 18098      | 129631    | 12          | 457.617                   |
+| Breadth first tree search                       |            |            |           |             |                           |
+| Depth first graph search                        |            |            |           |             |                           |
+| Depth limited search                            |            |            |           |             |                           |
+| Uniform cost search                             |            |            |           |             |                           |
+| Recursive best first search with h1             |            |            |           |             |                           |
+| Greedy best first graph search with h1          |            |            |           |             |                           |
+| A* search with h1 heuristic                     |            |            |           |             |                           |
+| A* search with h_ignore_preconditions heuristic |            |            |           |             |                           |
+| A* search with levelsum heuristic               |            |            |           |             |                           |
+
+The optimal solution for the problem.
 ```
 Load(C2, P2, JFK)
 Fly(P2, JFK, ORD)
@@ -280,7 +328,7 @@ Does not terminate in 10 minutes.
 ### Air Cargo Problem 3
 Does not terminate in 10 minutes.
 
-## 7. Greedy best first graph search with h_1
+## 7. Greedy best first graph search with h1
 ### Air Cargo Problem 1
  - Expansions: 7
  - Goal Tests: 9
