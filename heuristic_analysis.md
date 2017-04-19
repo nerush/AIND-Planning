@@ -1,3 +1,58 @@
+# Search methods analysis by Yevgen Nerush
+
+This analysis contains brief overview of the different search methods including non-heuristic and heuristic ones,
+their performance metrics along with benefits and limitations.
+Each search method is researched on the Air Cargo Problem of small (1), medium (2) and large sizes (3).
+
+There are five performance metrics in each search method evaluation:
+ - Expansions: the number of times the frontier is expanded by calling `PlanningProblem`'s `actions` function
+ - Goal Tests: the number of nodes verified for the goal match by calling `PlanningProblem`'s `goal_test` function
+ - New Nodes: the number of nodes added to the graph during the search by calling `PlanningProblem`'s `result` function
+ - Plan length: size of a list of the actions consecutive execution of which leads to an optimal solution (a solution with all sub-goals being satisfied)
+ - Execution time: the number of seconds a search algorithm takes to search for an optimal solution
+
+After analysing all 10 search methods listed in this paper, the following optimal plans have been found for Problems 1, 2 and 3.
+
+##  Air Cargo Problem 1
+```
+Load(C1, P1, SFO)
+Load(C2, P2, JFK)
+Fly(P1, SFO, JFK)
+Fly(P2, JFK, SFO)
+Unload(C1, P1, JFK)
+Unload(C2, P2, SFO)
+```
+
+##  Air Cargo Problem 2
+```
+Load(C1, P1, SFO)
+Fly(P1, SFO, JFK)
+Load(C2, P2, JFK)
+Fly(P2, JFK, SFO)
+Load(C3, P3, ATL)
+Fly(P3, ATL, SFO)
+Unload(C3, P3, SFO)
+Unload(C2, P2, SFO)
+Unload(C1, P1, JFK)
+```
+
+##  Air Cargo Problem 3
+```
+Load(C2, P2, JFK)
+Fly(P2, JFK, ORD)
+Load(C4, P2, ORD)
+Fly(P2, ORD, SFO)
+Unload(C4, P2, SFO)
+Load(C1, P1, SFO)
+Fly(P1, SFO, ATL)
+Load(C3, P1, ATL)
+Fly(P1, ATL, JFK)
+Unload(C3, P1, JFK)
+Unload(C2, P2, SFO)
+Unload(C1, P1, JFK)
+```
+
+
 ## 1. Breadth first search
 ### Air Cargo Problem 1
  - Expansions: 43
