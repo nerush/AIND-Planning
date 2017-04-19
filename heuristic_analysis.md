@@ -304,10 +304,40 @@ Unload(C2, P2, SFO)
 
 ## 8. A* search with h1 heuristic function
 ### Air Cargo Problem 1
+ - Expansions: 55
+ - Goal Tests: 57
+ - New Nodes: 224
+ - Plan length: 6
+ - Execution time: 0.25108054200245533 seconds
+```
+Load(C1, P1, SFO)
+Load(C2, P2, JFK)
+Fly(P1, SFO, JFK)
+Fly(P2, JFK, SFO)
+Unload(C1, P1, JFK)
+Unload(C2, P2, SFO)
+```
 
 ### Air Cargo Problem 2
+ - Expansions: 4853
+ - Goal Tests: 4855
+ - New Nodes: 44041
+ - Plan length: 9
+ - Execution time: 162.15786768100224 seconds
+```
+Load(C1, P1, SFO)
+Load(C2, P2, JFK)
+Load(C3, P3, ATL)
+Fly(P1, SFO, JFK)
+Fly(P2, JFK, SFO)
+Fly(P3, ATL, SFO)
+Unload(C3, P3, SFO)
+Unload(C2, P2, SFO)
+Unload(C1, P1, JFK)
+```
 
 ### Air Cargo Problem 3
+Does not terminate in 10 minutes.
 
 ## 9. A* search with h_ignore_preconditions
 ### Air Cargo Problem 1
@@ -322,6 +352,7 @@ Fly(P1, SFO, JFK)
 Unload(C1, P1, JFK)
 Load(C2, P2, JFK)
 Fly(P2, JFK, SFO)
+Unload(C2, P2, SFO)
 ```
 
 ### Air Cargo Problem 2
