@@ -11,10 +11,28 @@ There are five performance metrics in each search method evaluation:
  - Plan length: size of a list of the actions consecutive execution of which leads to an optimal solution (a solution with all sub-goals being satisfied)
  - Execution time: the number of seconds a search algorithm takes to search for an optimal solution
 
-After analysing all 10 search methods listed in this paper, the following optimal plans have been found for Problems 1, 2 and 3.
-
 ##  Air Cargo Problem 1
-TODO:
+From the optimal solution and the performance metrics listed in the Figure 1 and the Table 1 respectively, we can conclude that all
+but "Depth first graph search" and "Depth limited search" search methods find out the optimal solution of 6 actions. Taking into account that
+"Breadth first search", "Breadth first tree search" and "Recursive best first search with h1" come up with the optimal solution of 6 actions,
+they are not optimal in terms of number of expansions, goal tests and new nodes (EGN for convenience). "Breadth first search", "Depth first graph search",
+"Uniform cost search", "A* search with h1 heuristic" and "A* search with h_ignore_preconditions heuristic" search methods have slightly better
+performance characteristics, but they are still not the best ones in terms of performance metrics. The fastest heuristic search is
+"A* search with h_ignore_preconditions heuristic", but the most optimal heuristic search in terms of EGN is "A* search with levelsum heuristic". It is approximately
+5 times cheaper in terms of EGN than "A* search with h_ignore_preconditions heuristic", but its performance is 20 times slower.
+Both "Greedy best first graph search with h1" and "A* search with levelsum heuristic" come up with the optimal solution with the fewest number of EGN with the only
+one difference between them: "Greedy best first graph search with h1 " is almost 30 times faster than "A* search with levelsum heuristic."
+
+```
+Load(C1, P1, SFO)
+Load(C2, P2, JFK)
+Fly(P1, SFO, JFK)
+Fly(P2, JFK, SFO)
+Unload(C1, P1, JFK)
+Unload(C2, P2, SFO)
+```
+`Figure 1. The optimal solution for the Problem 1.`
+
 
 |                                                    | Expansions | Goal Tests | New Nodes | Plan length | Execution time in seconds |
 |:---------------------------------------------------|:-----------|:-----------|:----------|:------------|:--------------------------|
@@ -29,18 +47,32 @@ TODO:
 | 9. A* search with h_ignore_preconditions heuristic | 41         | 43         | 170       | 6           | 0.042                     |
 | 10. A* search with levelsum heuristic              | 7          | 9          | 28        | 6           | 0.900                     |
 
-The optimal solution for the problem.
-```
-Load(C1, P1, SFO)
-Load(C2, P2, JFK)
-Fly(P1, SFO, JFK)
-Fly(P2, JFK, SFO)
-Unload(C1, P1, JFK)
-Unload(C2, P2, SFO)
-```
+`Table 1. Performance metrics of the different search methods of Problem 1.`
 
 ##  Air Cargo Problem 2
-TODO:
+For the problem 2 we have different and more interesting performance characteristics of the search methods. Three search methods, such as
+"Breadth first tree search", "Depth limited search" and "Recursive best first search with h1", cannot search for the solution without violation
+of time constraint of 10 minutes. The fastest search method at this time is "Depth first graph search", it comes up with the solution in approximately
+2 seconds, but optimality of the solution is the most non-optimal comparing with the other search methods. It simply returns the first found solution
+which satisfies all the sub-goals. Both "Breadth first search" and "Uniform cost search" non-heuristic searches come up with the optimal sequence of actions,
+but their EGN metrics are much worse than of "Greedy best first graph search with h1" search. "Greedy best first graph search with h1",
+on its turn, has one of the most non-optimal solutions for the problem 2. From the observed three heuristic searches, the most optimal in terms of EGN is
+the latest one, "A* search with levelsum heuristic". It solves the problem with only 77 expansions, 79 goal tests and only 760 new nodes. On the other hand,
+it has one of the slowest execution times and it is 10 times slower than "A* search with h_ignore_preconditions heuristic".
+
+```
+Load(C1, P1, SFO)
+Fly(P1, SFO, JFK)
+Load(C2, P2, JFK)
+Fly(P2, JFK, SFO)
+Load(C3, P3, ATL)
+Fly(P3, ATL, SFO)
+Unload(C3, P3, SFO)
+Unload(C2, P2, SFO)
+Unload(C1, P1, JFK)
+```
+`Figure 2. The optimal solution for the Problem 2.`
+
 
 |                                                    | Expansions | Goal Tests | New Nodes | Plan length | Execution time in seconds |
 |:---------------------------------------------------|:-----------|:-----------|:----------|:------------|:--------------------------|
@@ -55,36 +87,18 @@ TODO:
 | 9. A* search with h_ignore_preconditions heuristic | 1506       | 1508       | 13820     | 9           | 13.943                    |
 | 10. A* search with levelsum heuristic              | 77         | 79         | 760       | 9           | 129.232                   |
 
-The optimal solution for the problem.
-```
-Load(C1, P1, SFO)
-Fly(P1, SFO, JFK)
-Load(C2, P2, JFK)
-Fly(P2, JFK, SFO)
-Load(C3, P3, ATL)
-Fly(P3, ATL, SFO)
-Unload(C3, P3, SFO)
-Unload(C2, P2, SFO)
-Unload(C1, P1, JFK)
-```
+`Table 2. Performance metrics of the different search methods of Problem 2.`
 
 ##  Air Cargo Problem 3
-TODO:
+The most interesting statistical information comes with problem 3. There are only three search methods which come up with the optimal
+solution of 12 actions in reasonable amount of time. Not surprisingly, "Depth first graph search" has the most non-optimal solution of
+392 actions because of its recursive nature and optimality detection approach. Non-heuristic "Greedy best first graph search with h1"
+search algorithm is better than mentioned above, bot worse than "A* search with h_ignore_preconditions heuristic", which seems to be
+the most optimal in terms of EGN and time among the others. "A* search with levelsum heuristic" is again (like in the problem 2)
+10 times slower than "A* search with h_ignore_preconditions heuristic" method, but it has much better characteristics for expansions,
+goal tests and new nodes.
 
-|                                                    | Expansions | Goal Tests | New Nodes | Plan length | Execution time in seconds |
-|:---------------------------------------------------|:-----------|:-----------|:----------|:------------|:--------------------------|
-| 1. Breadth first search                            | 14663      | 18098      | 129631    | 12          | 457.617                   |
-| 2. Breadth first tree search                       | ?          | ?          | ?         | ?           | > 600                     |
-| 3. Depth first graph search                        | 408        | 409        | 3364      | 392         | 11.076                    |
-| 4. Depth limited search                            | ?          | ?          | ?         | ?           | > 600                     |
-| 5. Uniform cost search                             | ?          | ?          | ?         | ?           | > 600                     |
-| 6. Recursive best first search with h1             | ?          | ?          | ?         | ?           | > 600                     |
-| 7. Greedy best first graph search with h1          | 5614       | 5616       | 49429     | 22          | 259.745                   |
-| 8. A* search with h1 heuristic                     | ?          | ?          | ?         | ?           | > 600                     |
-| 9. A* search with h_ignore_preconditions heuristic | 5118       | 5120       | 45650     | 12          | 93.625                    |
-| 10. A* search with levelsum heuristic              | 403        | 405        | 3708      | 12          | 950.926                   |
 
-The optimal solution for the problem.
 ```
 Load(C2, P2, JFK)
 Fly(P2, JFK, ORD)
@@ -99,8 +113,36 @@ Unload(C3, P1, JFK)
 Unload(C2, P2, SFO)
 Unload(C1, P1, JFK)
 ```
+`Figure 3. The optimal solution for the Problem 3.`
+
+
+|                                                    | Expansions | Goal Tests | New Nodes | Plan length | Execution time in seconds |
+|:---------------------------------------------------|:-----------|:-----------|:----------|:------------|:--------------------------|
+| 1. Breadth first search                            | 14663      | 18098      | 129631    | 12          | 457.617                   |
+| 2. Breadth first tree search                       | ?          | ?          | ?         | ?           | > 600                     |
+| 3. Depth first graph search                        | 408        | 409        | 3364      | 392         | 11.076                    |
+| 4. Depth limited search                            | ?          | ?          | ?         | ?           | > 600                     |
+| 5. Uniform cost search                             | ?          | ?          | ?         | ?           | > 600                     |
+| 6. Recursive best first search with h1             | ?          | ?          | ?         | ?           | > 600                     |
+| 7. Greedy best first graph search with h1          | 5614       | 5616       | 49429     | 22          | 259.745                   |
+| 8. A* search with h1 heuristic                     | ?          | ?          | ?         | ?           | > 600                     |
+| 9. A* search with h_ignore_preconditions heuristic | 5118       | 5120       | 45650     | 12          | 93.625                    |
+| 10. A* search with levelsum heuristic              | 403        | 405        | 3708      | 12          | 950.926                   |
+
+`Table 3. Performance metrics of the different search methods of Problem 3.`
 
 ## Conclusion
+The most fastest search method for solving problem 1 is non-heuristic search called "Greedy best first graph search with h1". It finds the most
+optimal solution of 6 steps in 0.027 seconds and has the lowest number of expansions, goal tests and new nodes, which are 7, 9 and 28 respectively.
+For the problem 2 the the choice depends on context of the problem. For the problems, where exploration costs are higher than cost of time,
+"A* search with levelsum heuristic" is the most optimal search method. On the other hand, e.g. for the real time systems, where exploration costs are cheap but time cost
+is the most expensive one, the "A* search with h_ignore_preconditions heuristic" search is the most optimal one. The same logic is applicable for the problem 3: if time
+is not an issue and it is cheaper to think twice, the "A* search with levelsum heuristic" search is the most optimal one, because it finds the plan of 12 actions in
+403 expansions, 405 goal tests and 3708 new nodes. It is worth to mention, that "A* search with levelsum heuristic" is slow because of runtime complexity of its heuristic function.
+The algorithm of choice is "A* search with h_ignore_preconditions heuristic", because it provides the optimal solution in reasonable time and has relatively not high exploration costs,
+such as expansions, goal tests and new nodes.
+
+## Search results
 
 ## 1. Breadth first search
 ### Air Cargo Problem 1
